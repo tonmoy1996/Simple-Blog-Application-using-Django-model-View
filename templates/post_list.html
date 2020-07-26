@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<h3>Post List..</h3>
+
+ {% for post in post_list %}
+  <div class="container">
+  <h3> <a href="{% url 'post_detail' post.pk  %}">  {{post.title}}</a> </h3>
+  <p>{{post.text }}</p>
+  </div>
+
+ {% endfor %}
+
+{% endblock %}

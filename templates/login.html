@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%block title%}
+<title>Login</title>
+{%endblock%}
+
+{%block content%}
+
+<h3>Login here..</h3>
+<br>
+{% if messages %}
+{% for msg in messages %}
+
+<div class="alert " role="alert">
+  
+ {{msg}}
+ 
+</div>
+{% endfor %}
+{% endif %}
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input name="username" value="{{ values.username }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input name="password" type="password" class="form-control" id="exampleInputPassword1" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+{% endblock %}

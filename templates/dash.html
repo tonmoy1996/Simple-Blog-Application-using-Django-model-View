@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+<h3 class="text-success m-2">All Draft Post:</h3>
+{% for post in posts %}
+
+<div class="row m-4">
+    <div class="col-md-8">
+<h5><a href="{% url 'post_detail' post.pk  %}">  {{post.title}}</a> </h5>
+    </div>
+    <div class="col-md-2">
+    <a class="btn btn-primary " href="{% url 'post_publish' post.pk  %}"> <small>Publish Post</small></a>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary " href="{% url 'post_publish' post.pk  %}"> <small>Remove Post</small></a>
+    </div>
+</div>
+{% endfor %}
+
+
+<h3 class="text-success m-2">All Draft Comment:</h3>
+{% for comment in comments %}
+<div class="row">
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{comment.author}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{comment.post}}</h6>
+          <p class="card-text"> {{comment.text}}</p>
+          <a href="{% url 'comment_approve' comment.id  %}" class="card-link">Publish Comment</a>
+          <a href="{% url 'comment_remove' comment.pk  %}" class="card-link">Publish Remove</a>
+        </div>
+      </div>
+
+</div>
+{% endfor %}
+{% endblock %}
