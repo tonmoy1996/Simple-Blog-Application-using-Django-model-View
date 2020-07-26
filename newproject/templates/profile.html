@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<br>
+<h3>Welcome {{request.user}}</h3>
+
+<h4>All Post:</h4>
+{% for post in posts %}
+<br>
+<div class="row">
+  <div class="col-10">
+     <ul class="list-group m-2">
+    <li class="list-group-item disabled" aria-disabled="true"> <strong>{{post.title}}</strong>  </li>
+    <li class="list-group-item">{{post.text}}</li>
+    <li class="list-group-item">Creation Date: {{post.created_date}} 
+      <button class="btn btn-primary"><a class="btn-primary" href="{% url 'post_update' post.pk  %}"> Update</a></button>
+      <button class="btn btn-danger"> <a class="btn-danger" href="{% url 'post_delete' post.pk  %}"> Delete</a></button>
+    </li>
+  </ul>
+  </div>
+ 
+
+
+</div>
+
+{% endfor %}
+{% endblock %}

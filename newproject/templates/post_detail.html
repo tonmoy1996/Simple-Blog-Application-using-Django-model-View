@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<h3>Post: {{post.title}}</h3>
+<strong class=" text-primary mb-2">Posted by @ {{post.author}}</strong>
+<p>Summary: {{post.text|safe|linebreaksbr}}</p>
+
+{% if user.is_staff  %}
+
+<button class="btn btn-primary"><a class="btn-primary" href="{% url 'post_update' post.pk  %}"> Update</a></button>
+
+<button class="btn btn-danger"> <a class="btn-danger" href="{% url 'post_delete' post.pk  %}"> Delete</a></button>
+
+<button class="btn btn-secondary"> <a class="btn-secondary" href="{% url 'add_comment' post.pk  %}"> Comment</a></button>
+
+{% if post.publish_date is None %}
+<button class="btn btn-success"> <a class="btn-success " href="{% url 'post_publish' post.pk  %}"> Publish</a></button>
+{% endif %}
+
+{% endif %}
+
+<br>
+<div class="row">
+    <div class="col">
+        <form  method="POST" action="{% url 'add_new_comment' post.pk %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_text">Comment here..</label>
+                <textarea class="form-control" name="text" id="id_text" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+<hr>
+{% for comment in post.comments.all %}
+<br>
+    {% if user.is_staff or comment.approved_comment %}
+            {{ comment.created_date }}
+
+            {% if not comment.approved_comment %}
+
+            <button class="btn btn-primary"> <a class="btn-primary" href="{% url 'comment_approve' comment.pk  %}"> Approve</a></button>
+
+            <button class="btn btn-success"> <a class="btn-success" href="{% url 'comment_remove' comment.pk  %}"> Remove</a></button>
+            {% endif %}
+
+        <p>{{ comment.text|safe|linebreaks }}</p>
+        <p>Posted by: <strong> @{{ comment.author }}</strong></p>
+
+    {% endif %}
+{% empty %}
+    <p>No comments posted.</p>
+{% endfor %}
+
+</div>
+{% endblock %}

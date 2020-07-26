@@ -1,0 +1,18 @@
+
+.module caption{
+
+    background-color: darkorange;
+    font-size: 20px;
+}
+th,td{
+    font-size: 18px;
+    background-color: azure;
+    
+}
+#header{
+    background-color: darkgoldenrod;
+}
+#user-tools{
+    color:whitesmoke;
+    font-size: 20px;
+}
