@@ -1,0 +1,6 @@
+./env
+requirements.txt
+runtime.txt
+Procfile
+./static
+db.sqlite3
